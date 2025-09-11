@@ -61,9 +61,46 @@ const observer = new IntersectionObserver(entries => {
     if (entry.isIntersecting) {
       entry.target.classList.add('show');
     } else {
-      entry.target.classList.remove('show'); // fade out again
+      entry.target.classList.remove('show');
     }
   });
 }, { threshold: 0.2 });
 
 hiddenElements.forEach(el => observer.observe(el));
+
+// GLOW EFFECT for SERVICES (random timing per box)
+const serviceBoxes = document.querySelectorAll('.services span');
+setInterval(() => {
+  const idx = Math.floor(Math.random() * serviceBoxes.length);
+  serviceBoxes[idx].classList.add('glow');
+  setTimeout(() => {
+    serviceBoxes[idx].classList.remove('glow');
+  }, 800);
+}, 500);
+
+// ABOUT ME paragraph typing effect
+const aboutParagraph = document.getElementById('about-paragraph');
+if (aboutParagraph) {
+  const text = aboutParagraph.innerHTML;
+  aboutParagraph.innerHTML = '';
+  const chars = [...text];
+  chars.forEach((ch, i) => {
+    const span = document.createElement('span');
+    span.innerHTML = ch === ' ' ? '&nbsp;' : ch;
+    aboutParagraph.appendChild(span);
+    setTimeout(() => {
+      span.classList.add('visible');
+    }, i * 40);
+  });
+}
+
+// POPUP NOTIFICATION (always on refresh)
+document.addEventListener('DOMContentLoaded', () => {
+  const popup = document.getElementById('project-popup');
+  const closeBtn = document.getElementById('close-popup');
+  if (popup) {
+    closeBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+  }
+});

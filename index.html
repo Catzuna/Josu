@@ -23,11 +23,11 @@
   <main>
 
     <!-- Hero Section -->
-    <section id="home" class="hero fade-section hidden-bottom">
+    <section id="home" class="hero hidden-bottom">
       <div class="hero-text">
-        <h1 class="hidden-bottom">Josu</h1>
-        <h3 id="flicker-text" class="hidden-bottom">Web Designer & Virtual Assistant</h3>
-        <p class="hidden-bottom">
+        <h1>Josu</h1>
+        <h3 id="flicker-text">Web Designer & Virtual Assistant</h3>
+        <p>
           I create modern, responsive websites and offer virtual assistance tailored to your needs, focusing on Website & Portfolio Design, WordPress Development, Social Media Management, Video Editing & Content Creation, and Business Websites. 
           My goal is to provide high-quality solutions that help your business grow and manage its online presence efficiently.
         </p>
@@ -40,15 +40,15 @@
           <span>Business Websites</span>
         </div>
 
-        <a href="#contact" class="btn hidden-bottom">WORK WITH ME</a>
+        <a href="#contact" class="btn">WORK WITH ME</a>
       </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about fade-section">
-      <div class="about-content hidden-left">
+    <section id="about" class="about hidden-left">
+      <div class="about-content">
         <h2>About Me</h2>
-        <p>
+        <p id="about-paragraph">
           I’m <strong>Joshua Adrian Don</strong>, a 23-year-old Web Designer and Virtual Assistant, and a BSIT graduate from <strong>Dalubsaan ng Lungsod ng Lucena (2025)</strong>. 
           I specialize in creating modern, responsive websites and providing virtual assistance tailored to businesses’ needs. 
           Skilled in <strong>WordPress, Figma, Canva,</strong> and <strong>Capcut</strong>, I focus on delivering high-quality solutions including Website & Portfolio Design, WordPress Development, Social Media Management, Video Editing & Content Creation, and Business Websites. 
@@ -56,12 +56,12 @@
         </p>
       </div>
       <div class="about-img hidden-right">
-        <img src="your-transparent-pic.png" alt="Joshua Adrian Don">
+        <img src="your-photo.png" alt="Josu">
       </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects fade-section hidden-bottom">
+    <section id="projects" class="projects hidden-bottom">
       <h2>Projects</h2>
       <div class="project-grid">
         <div class="project-card">
@@ -80,7 +80,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact fade-section hidden-bottom">
+    <section id="contact" class="contact hidden-bottom">
       <h2>Contact Me</h2>
       <form>
         <input type="text" placeholder="Your Name" required>
@@ -96,6 +96,16 @@
   <footer>
     <p>&copy; 2025 Josu. All rights reserved.</p>
   </footer>
+
+  <!-- Project Ongoing Popup -->
+  <div class="popup-overlay" id="project-popup">
+    <div class="popup-box">
+      <h3>🚧 Project Ongoing</h3>
+      <p>This portfolio is still under development. Some features may not be finished yet.</p>
+      <small>You can close this and explore the site.</small>
+      <button id="close-popup">Got it!</button>
+    </div>
+  </div>
 
   <!-- JS -->
   <script src="script.js"></script>

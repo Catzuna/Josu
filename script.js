@@ -26,17 +26,17 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// About Me typing effect
+// About Me typing effect (fixed for plain text)
 const aboutParagraph = document.getElementById('about-paragraph');
 if (aboutParagraph) {
-  const text = aboutParagraph.innerHTML;
-  aboutParagraph.innerHTML = '';
+  const text = aboutParagraph.textContent; // ✅ plain text lang
+  aboutParagraph.textContent = '';
   let i = 0;
   function typeChar() {
     if (i < text.length) {
       const char = text[i];
       const span = document.createElement('span');
-      span.innerHTML = char;
+      span.textContent = char;
       aboutParagraph.appendChild(span);
       setTimeout(() => span.classList.add('visible'), 10);
       i++;
@@ -111,8 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
       popup.classList.add('fade-out');
       setTimeout(() => {
         popup.style.display = 'none';
-        window.location.hash = '#home'; // Go back to home on refresh
-      }, 1000); // match CSS transition
+        window.location.hash = '#home';
+      }, 1000);
     }
   }, 1000);
 });

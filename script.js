@@ -16,7 +16,7 @@ document.querySelectorAll('.btn').forEach(btn => {
   });
 });
 
-// Navbar shrink effect on scroll
+// Navbar shrink effect
 const navbar = document.querySelector('.topbar');
 window.addEventListener('scroll', () => {
   if (window.scrollY > 50) {
@@ -26,7 +26,27 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// RANDOM POPUP LIGHT EFFECT
+// About Me typing effect
+const aboutParagraph = document.getElementById('about-paragraph');
+if (aboutParagraph) {
+  const text = aboutParagraph.innerHTML;
+  aboutParagraph.innerHTML = '';
+  let i = 0;
+  function typeChar() {
+    if (i < text.length) {
+      const char = text[i];
+      const span = document.createElement('span');
+      span.innerHTML = char;
+      aboutParagraph.appendChild(span);
+      setTimeout(() => span.classList.add('visible'), 10);
+      i++;
+      setTimeout(typeChar, 30);
+    }
+  }
+  typeChar();
+}
+
+// RANDOM POPUP LIGHT EFFECT on hero text
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.getElementById('flicker-text');
   if (!el) return;
@@ -51,11 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 200);
 });
 
-// FADE-IN + FADE-OUT ON SCROLL (EXCEPT NAVBAR)
-const hiddenElements = document.querySelectorAll(
-  '.hidden-left, .hidden-right, .hidden-bottom'
-);
-
+// FADE-IN + FADE-OUT ON SCROLL
+const hiddenElements = document.querySelectorAll('.hidden-left, .hidden-right, .hidden-bottom');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -65,10 +82,9 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.2 });
-
 hiddenElements.forEach(el => observer.observe(el));
 
-// GLOW EFFECT for SERVICES (random timing per box)
+// GLOW EFFECT for SERVICES
 const serviceBoxes = document.querySelectorAll('.services span');
 setInterval(() => {
   const idx = Math.floor(Math.random() * serviceBoxes.length);
@@ -78,29 +94,25 @@ setInterval(() => {
   }, 800);
 }, 500);
 
-// ABOUT ME paragraph typing effect
-const aboutParagraph = document.getElementById('about-paragraph');
-if (aboutParagraph) {
-  const text = aboutParagraph.innerHTML;
-  aboutParagraph.innerHTML = '';
-  const chars = [...text];
-  chars.forEach((ch, i) => {
-    const span = document.createElement('span');
-    span.innerHTML = ch === ' ' ? '&nbsp;' : ch;
-    aboutParagraph.appendChild(span);
-    setTimeout(() => {
-      span.classList.add('visible');
-    }, i * 40);
-  });
-}
-
-// POPUP NOTIFICATION (always on refresh)
+// POPUP countdown with smooth fade-out
 document.addEventListener('DOMContentLoaded', () => {
   const popup = document.getElementById('project-popup');
-  const closeBtn = document.getElementById('close-popup');
-  if (popup) {
-    closeBtn.addEventListener('click', () => {
-      popup.style.display = 'none';
-    });
-  }
+  const countdownEl = document.getElementById('popup-countdown');
+  if (!popup) return;
+
+  let counter = 3;
+  countdownEl.textContent = `Closing in ${counter}s...`;
+
+  const interval = setInterval(() => {
+    counter--;
+    countdownEl.textContent = `Closing in ${counter}s...`;
+    if (counter <= 0) {
+      clearInterval(interval);
+      popup.classList.add('fade-out');
+      setTimeout(() => {
+        popup.style.display = 'none';
+        window.location.hash = '#home'; // Go back to home on refresh
+      }, 1000); // match CSS transition
+    }
+  }, 1000);
 });

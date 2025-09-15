@@ -120,19 +120,7 @@ section {
   color: var(--white);
 }
 
-/* Random Pop Effect */
-#flicker-text span {
-  display: inline-block;
-  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
-}
-
-#flicker-text span.active {
-  transform: scale(1.25);
-  color: var(--white);
-  text-shadow: 0 0 10px var(--white), 0 0 20px var(--white), 0 0 40px var(--white);
-}
-
-/* Services Static */
+/* Services Static (NO effects) */
 .services {
   display: flex;
   flex-wrap: wrap;
@@ -140,6 +128,7 @@ section {
   gap: 8px;
   margin-top: 14px;
 }
+
 .services span {
   display: inline-block;
   margin: 8px;
@@ -149,11 +138,6 @@ section {
   font-size: 0.9rem;
   text-transform: uppercase;
   cursor: default;
-  transition: box-shadow 0.4s ease;
-}
-
-.services span.glow {
-  box-shadow: 0 0 10px var(--white), inset 0 0 5px var(--white);
 }
 
 /* Buttons */
@@ -211,18 +195,6 @@ section {
   word-break: break-word;
 }
 
-/* Typing effect visibility */
-#about-paragraph span {
-  opacity: 0;
-  transform: translateY(2px);
-  display: inline-block;
-  transition: opacity 0.12s ease, transform 0.12s ease;
-}
-#about-paragraph span.visible {
-  opacity: 1;
-  transform: none;
-}
-
 /* Video container and social icons */
 .about-video-container {
   display: flex;
@@ -265,14 +237,6 @@ section {
   color: var(--accent);
   text-shadow: 0 0 10px rgba(168,85,247,0.9), 0 0 18px rgba(168,85,247,0.6);
   transform: scale(1.12);
-}
-
-/* Prevent home fade */
-#home.hidden-left,
-#home.hidden-right,
-#home.hidden-bottom {
-  opacity: 1 !important;
-  transform: none !important;
 }
 
 /* Fade-in Animation */
@@ -405,58 +369,4 @@ footer {
   text-align: center;
   padding: 20px;
   border-top: 2px solid var(--white);
-}
-
-/* Popup Overlay */
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  opacity: 1;
-  transition: opacity 1s ease;
-}
-
-.popup-overlay.fade-out {
-  opacity: 0;
-}
-
-.popup-box {
-  background: #111;
-  border: 2px solid #fff;
-  padding: 30px 40px;
-  text-align: center;
-  max-width: 400px;
-  border-radius: 6px;
-  color: #fff;
-}
-
-.popup-box h3 {
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-}
-
-.popup-box p {
-  font-size: 1rem;
-  margin-bottom: 10px;
-  line-height: 1.4;
-}
-
-.popup-box small {
-  display: block;
-  margin-bottom: 20px;
-  font-size: 0.8rem;
-  color: var(--gray4);
-}
-
-#popup-countdown {
-  font-size: 1rem;
-  font-weight: bold;
 }

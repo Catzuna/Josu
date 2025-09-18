@@ -24,7 +24,9 @@ body {
   overflow-x: hidden;
 }
 
-/* Top Navigation */
+/* =======================
+   Top Navigation
+======================= */
 .topbar {
   position: fixed;
   top: 0;
@@ -52,6 +54,12 @@ body {
   cursor: pointer;
   letter-spacing: 2px;
   text-transform: uppercase;
+  text-shadow: 0 0 6px rgba(255,255,255,0.6), 0 0 10px rgba(168,85,247,0.6);
+  transition: text-shadow 0.3s ease;
+}
+
+.logo:hover {
+  text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 16px rgba(168,85,247,0.9);
 }
 
 .nav-links {
@@ -75,7 +83,49 @@ body {
   border-bottom: 2px solid var(--white);
 }
 
-/* Sections */
+/* Hamburger button */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: var(--white);
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+/* Mobile menu hidden */
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 20px;
+    border: 2px solid var(--white);
+    border-radius: 6px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* =======================
+   Sections
+======================= */
 main {
   padding-top: 88px;
 }
@@ -87,11 +137,13 @@ section {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  position: relative; /* for particles */
+  position: relative;
   overflow: hidden;
 }
 
-/* Hero Section */
+/* =======================
+   Hero Section
+======================= */
 .hero {
   position: relative;
   color: var(--white);
@@ -123,7 +175,9 @@ section {
   min-height: 1.5em;
 }
 
-/* Services Static */
+/* =======================
+   Services
+======================= */
 .services {
   display: flex;
   flex-wrap: wrap;
@@ -143,7 +197,9 @@ section {
   cursor: default;
 }
 
-/* Buttons */
+/* =======================
+   Buttons
+======================= */
 .btn {
   display: inline-block;
   margin-top: 10px;
@@ -164,7 +220,9 @@ section {
   transform: scale(1.03);
 }
 
-/* About Section */
+/* =======================
+   About Section
+======================= */
 .about {
   background: rgba(0, 0, 0, 0.62);
   border-top: 2px solid var(--gray3);
@@ -256,7 +314,9 @@ section {
   transform: scale(1.12);
 }
 
-/* Floating particles */
+/* =======================
+   Particles & Animations
+======================= */
 .particle {
   position: absolute;
   width: 6px;
@@ -273,7 +333,6 @@ section {
   100% { transform: translateY(0) translateX(0); opacity: 0.5; }
 }
 
-/* Fade-in Animation */
 .hidden-left, .hidden-right, .hidden-bottom {
   opacity: 0;
   transition: all 1s ease;
@@ -283,39 +342,9 @@ section {
 .hidden-bottom { transform: translateY(60px); }
 .show { opacity: 1; transform: none; }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .about {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 40px 20px;
-    gap: 18px;
-  }
-  .about-content, .about-video-container {
-    min-width: 100%;
-    max-width: 100%;
-  }
-  #about-video { max-width: 280px; }
-}
-
-@media (max-width: 420px) {
-  .topbar { padding: 10px 14px; }
-  .logo { font-size: 1rem; }
-  section { padding: 40px 12px; }
-  #about-video { max-width: 200px; }
-  .social-icons a { font-size: 1.4rem; padding: 6px; }
-  .social-icons { gap: 16px; }
-  .services { gap: 4px; }
-  .services span { padding: 6px 12px; font-size: 0.8rem; }
-}
-
-@media (max-width: 360px) {
-  .hero-text h1 { font-size: 2.5rem; }
-  .hero-text h3 { font-size: 1rem; }
-}
-
-/* Projects Section */
+/* =======================
+   Projects Section
+======================= */
 .projects {
   background: rgba(17, 17, 17, 0.7);
   border-top: 2px solid var(--gray3);
@@ -348,7 +377,9 @@ section {
   transform: scale(1.03);
 }
 
-/* Contact Section */
+/* =======================
+   Contact Section
+======================= */
 .contact {
   background: rgba(0, 0, 0, 0.7);
   border-top: 2px solid var(--gray3);
@@ -396,8 +427,9 @@ section {
   color: var(--white);
 }
 
-
-/* Shooting Stars */
+/* =======================
+   Shooting Stars
+======================= */
 .shooting-star {
   position: fixed;
   width: 2px;
@@ -405,7 +437,7 @@ section {
   background: linear-gradient(white, transparent);
   transform: rotate(45deg);
   opacity: 0.8;
-  z-index: -1; /* behind content */
+  z-index: -1;
   pointer-events: none;
   animation: shoot 1s ease-in-out forwards;
 }
@@ -415,9 +447,9 @@ section {
   to { transform: translate(-400px, 400px) rotate(45deg); opacity: 0; }
 }
 
-
-
-/* Footer */
+/* =======================
+   Footer
+======================= */
 footer {
   background: rgba(0, 0, 0, 0.8);
   color: var(--white);
@@ -425,3 +457,77 @@ footer {
   padding: 20px;
   border-top: 2px solid var(--white);
 }
+
+/* =======================
+   Responsive
+======================= */
+@media (max-width: 900px) {
+  .about {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    gap: 18px;
+  }
+  .about-content, .about-video-container {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  #about-video { max-width: 280px; }
+}
+
+@media (max-width: 420px) {
+  .topbar { padding: 10px 14px; }
+  .logo { font-size: 1rem; }
+  section { padding: 40px 12px; }
+  #about-video { max-width: 200px; }
+  .social-icons a { font-size: 1.4rem; padding: 6px; }
+  .social-icons { gap: 16px; }
+  .services { gap: 4px; }
+  .services span { padding: 6px 12px; font-size: 0.8rem; }
+}
+
+@media (max-width: 360px) {
+  .hero-text h1 { font-size: 2.5rem; }
+  .hero-text h3 { font-size: 1rem; }
+}
+
+
+/* =======================
+   Video 3D Tilt
+======================= */
+.about-video-container {
+  perspective: 1000px;
+}
+#about-video {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* =======================
+   Custom Cursor
+======================= */
+/* ======================
+   Custom Cursor
+   ====================== */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor.active {
+  transform: translate(-50%, -50%) scale(1.8);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+

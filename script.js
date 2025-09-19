@@ -4,28 +4,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const isTouch = window.matchMedia("(pointer: coarse)").matches || 'ontouchstart' in window;
 
   // ======================
-  // Background Music
+  // Background Music (Autoplay + Fade In + Loop)
   // ======================
   const bgMusic = document.getElementById("bgMusic");
   function playMusicFadeIn() {
     if (!bgMusic) return;
+    bgMusic.loop = true;
     bgMusic.currentTime = 0;
     bgMusic.volume = 0;
     bgMusic.play().catch(() => {});
     let volume = 0;
     const fadeInInterval = setInterval(() => {
       volume += 0.02;
-      if (volume >= 1) {
-        volume = 1;
+      if (volume >= 0.6) { // limit to 60% volume
+        volume = 0.6;
         clearInterval(fadeInInterval);
       }
       bgMusic.volume = volume;
-    }, 100);
+    }, 120);
   }
-  if (bgMusic) bgMusic.addEventListener("ended", playMusicFadeIn);
-  playMusicFadeIn();
-  document.addEventListener("click", playMusicFadeIn, { once: true });
-  document.addEventListener("keydown", playMusicFadeIn, { once: true });
+  if (bgMusic) {
+    bgMusic.addEventListener("ended", playMusicFadeIn);
+    playMusicFadeIn();
+  }
 
   // ======================
   // Reset page to top
@@ -47,13 +48,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ======================
-  // Navbar shrink
+  // Navbar smooth shrink with high FPS
   // ======================
   const navbar = document.querySelector('.topbar');
   if (navbar) {
+    let currentPadding = 16;
+    let targetPadding = 16;
+    let animating = false;
+
+    const updatePadding = () => {
+      currentPadding += (targetPadding - currentPadding) * 0.2;
+      navbar.style.paddingTop = navbar.style.paddingBottom = `${currentPadding}px`;
+      if (Math.abs(targetPadding - currentPadding) > 0.1) {
+        animating = true;
+        requestAnimationFrame(updatePadding);
+      } else {
+        animating = false;
+        currentPadding = targetPadding;
+      }
+    };
+
     const onScroll = () => {
-      if (window.scrollY > 50) navbar.classList.add('shrink');
-      else navbar.classList.remove('shrink');
+      targetPadding = window.scrollY > 50 ? 10 : 16;
+      if (!animating) updatePadding();
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -76,12 +93,32 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   // ======================
-  // Typewriter
+  // Typewriter + Galaxy Gradient Flow
   // ======================
   const typewriter = document.getElementById('typewriter');
   if (typewriter) {
     const texts = ["Information Technology", "Web Designer", "Logo Maker", "Fresh Graduate"];
     let index = 0, charIndex = 0, isDeleting = false;
+
+    // Apply galaxy gradient style
+    typewriter.style.backgroundImage = "linear-gradient(90deg, #8e2de2, #4a00e0, #1e3c72, #2a5298)";
+    typewriter.style.backgroundSize = "400% 400%";
+    typewriter.style.webkitBackgroundClip = "text";
+    typewriter.style.backgroundClip = "text";
+    typewriter.style.color = "transparent";
+    typewriter.style.animation = "galaxyFlow 8s ease infinite";
+
+    // Inject keyframes for gradient animation
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes galaxyFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    `;
+    document.head.appendChild(style);
+
     function type() {
       const current = texts[index];
       if (!isDeleting) {
@@ -135,14 +172,25 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(() => { if (Math.random() > 0.2) createShootingStar(); }, 800);
 
   // ======================
-  // Mobile Nav Toggle
+  // Mobile Nav Toggle + Auto-hide
   // ======================
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.querySelector('.nav-links');
   if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
+    const closeNav = () => navLinks.classList.remove('active');
+
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
       navLinks.classList.toggle('active');
     });
+
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) closeNav();
+    });
+
+    window.addEventListener('scroll', () => {
+      closeNav();
+    }, { passive: true });
   }
 
   // ======================
@@ -178,72 +226,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ======================
-  // Cursor / Touch Indicator
-  // ======================
-  if (!isTouch) {
-    const cursor = document.createElement('div');
-    cursor.classList.add('custom-cursor');
-    document.body.appendChild(cursor);
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.top = `${e.clientY}px`;
-      cursor.style.left = `${e.clientX}px`;
-    });
-    const interactiveElems = document.querySelectorAll('a, button, .btn, .logo');
-    interactiveElems.forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
-    });
-  } else {
-    let touchIndicator = document.getElementById('touch-indicator');
-    if (!touchIndicator) {
-      touchIndicator = document.createElement('div');
-      touchIndicator.id = 'touch-indicator';
-      Object.assign(touchIndicator.style, {
-        position: 'fixed',
-        width: '32px',
-        height: '32px',
-        borderRadius: '50%',
-        background: 'rgba(255,255,255,0.03)',
-        border: '2px solid rgba(168,85,247,0.95)',
-        boxShadow: '0 0 12px rgba(168,85,247,0.8)',
-        pointerEvents: 'none',
-        transform: 'translate(-50%,-50%) scale(1)',
-        transition: 'opacity 220ms linear, transform 120ms ease',
-        zIndex: '9999',
-        opacity: '0'
-      });
-      document.body.appendChild(touchIndicator);
-    }
-
-    let hideTimeout;
-    const showAt = (x, y) => {
-      touchIndicator.style.left = `${x}px`;
-      touchIndicator.style.top = `${y}px`;
-      touchIndicator.style.opacity = '1';
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        touchIndicator.style.opacity = '0';
-      }, 3000);
-    };
-
-    const updateByEvent = (e) => {
-      let x, y;
-      if (e.touches && e.touches[0]) {
-        x = e.touches[0].clientX;
-        y = e.touches[0].clientY;
-      } else {
-        x = e.clientX || window.innerWidth / 2;
-        y = e.clientY || window.innerHeight / 2;
-      }
-      showAt(x, y);
-    };
-
-    document.addEventListener('touchstart', updateByEvent, { passive: true });
-    document.addEventListener('touchmove', updateByEvent, { passive: true });
-    document.addEventListener('click', updateByEvent);
-    window.addEventListener('scroll', () => {
-      showAt(window.innerWidth / 2, window.innerHeight / 2);
-    }, { passive: true });
-  }
 });

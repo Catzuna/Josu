@@ -8,6 +8,11 @@
   --accent: #a855f7;
 }
 
+/* =======================
+   Global Styles
+======================= */
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One');
+
 * {
   margin: 0;
   padding: 0;
@@ -54,8 +59,7 @@ body {
   cursor: pointer;
   letter-spacing: 2px;
   text-transform: uppercase;
-  text-shadow: 0 0 6px rgba(255,255,255,0.6), 0 0 10px rgba(168,85,247,0.6);
-  transition: text-shadow 0.3s ease;
+  animation: lights 5s linear infinite;
 }
 
 .logo:hover {
@@ -69,18 +73,63 @@ body {
   flex-wrap: wrap;
 }
 
-.nav-links a {
-  color: var(--white);
-  text-decoration: none;
-  font-size: 1.05rem;
-  font-weight: bold;
-  padding: 4px 0;
-  transition: 0.3s;
-  border-bottom: 2px solid transparent;
+.nav-links li {
+  list-style: none;
 }
 
-.nav-links a:hover {
+.nav-links li a {
+  position: relative;
+  display: block;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: var(--white);
+  font-size: 1.05rem;
+  font-weight: bold;
+  transition: 0.3s;
+  z-index: 1;
+}
+
+.nav-links li a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top: 2px solid var(--white);
   border-bottom: 2px solid var(--white);
+  transform: scaleY(2);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--white);
+  transform: scale(0);
+  opacity: 0;
+  transition: 0.3s;
+  z-index: -1;
+}
+
+.nav-links li a:hover {
+  color: var(--black);
+}
+
+.nav-links li a:hover::before {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.nav-links li a:hover::after {
+  transform: scaleY(1);
+  opacity: 1;
 }
 
 /* Hamburger button */
@@ -165,6 +214,7 @@ section {
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 10px;
+  animation: lights 5s linear infinite;
 }
 
 .hero-text h3 {
@@ -198,26 +248,68 @@ section {
 }
 
 /* =======================
-   Buttons
+   Sliced Button Effect
 ======================= */
-.btn {
+.btn-slice {
+  padding: 1.2rem 2.5rem;
+  border: 2px solid #ffffff;
+  border-radius: 0rem;
+  color: #ffffff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.3rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-transform: uppercase;
   display: inline-block;
-  margin-top: 10px;
-  padding: 12px 24px;
-  font-size: 1rem;
-  background: var(--white);
-  color: var(--black);
-  text-decoration: none;
-  border: 2px solid var(--white);
-  border-radius: 4px;
-  font-weight: bold;
-  transition: all 0.22s ease;
+  background: transparent;
+  transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225);
 }
 
-.btn:hover {
-  background: var(--black);
-  color: var(--white);
-  transform: scale(1.03);
+.btn-slice .top,
+.btn-slice .bottom {
+  position: relative;
+  height: 6px;
+  overflow: hidden;
+  transition: all 300ms cubic-bezier(1.000, -0.055, 0.025, 1.040);
+}
+
+.btn-slice .bottom span {
+  top: -6px;
+  position: absolute;
+  left: 0;
+}
+
+.btn-slice:hover .top {
+  top: -5px;
+  transition-delay: 0.35s;
+}
+
+.btn-slice:hover .bottom {
+  bottom: -5px;
+  transition-delay: 0.35s;
+}
+
+.btn-slice:hover,
+.btn-slice:focus,
+.btn-slice:active {
+  margin-left: 10px;
+}
+
+.btn-slice:before {
+  content: '';
+  height: 1px;
+  width: 60px;
+  background-color: #ffffff;
+  position: absolute;
+  margin-top: 6px;
+  right: -35px;
+  transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225);
+}
+
+.btn-slice:hover:before {
+  width: 130%;
 }
 
 /* =======================
@@ -278,6 +370,7 @@ section {
   min-width: 45%;
   max-width: 400px;
   position: relative;
+  perspective: 1000px;
 }
 
 #about-video {
@@ -288,6 +381,8 @@ section {
   border: 2px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.12);
   animation: videoGlow 3s ease-in-out infinite;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 @keyframes videoGlow {
@@ -333,14 +428,20 @@ section {
   100% { transform: translateY(0) translateX(0); opacity: 0.5; }
 }
 
+/* =======================
+   Hidden Animation
+======================= */
 .hidden-left, .hidden-right, .hidden-bottom {
   opacity: 0;
-  transition: all 1s ease;
+  transition: all 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }
-.hidden-left { transform: translateX(-60px); }
-.hidden-right { transform: translateX(60px); }
-.hidden-bottom { transform: translateY(60px); }
-.show { opacity: 1; transform: none; }
+.hidden-left { transform: translateX(-50px) translateY(20px); }
+.hidden-right { transform: translateX(50px) translateY(20px); }
+.hidden-bottom { transform: translateY(50px); }
+.show { 
+  opacity: 1; 
+  transform: translateX(0) translateY(0); 
+}
 
 /* =======================
    Projects Section
@@ -358,23 +459,83 @@ section {
 }
 
 .project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   margin-top: 20px;
 }
 
-.project-card {
-  background: var(--black);
-  color: var(--white);
-  padding: 18px;
-  border: 2px solid var(--white);
-  border-radius: 6px;
-  transition: transform 0.28s;
+.card {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
 }
 
-.project-card:hover {
-  transform: scale(1.03);
+.card .slide {
+  width: 100%;
+  height: 100%;
+  transition: 0.6s;
+}
+
+.card .slide.slide1 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(100px);
+  z-index: 1;
+}
+
+.card:hover .slide.slide1 {
+  transform: translateY(0);
+}
+
+.card .slide.slide1 .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card .slide.slide2 {
+  position: relative;
+  background: var(--white);
+  color: var(--black);
+  padding: 20px;
+  box-sizing: border-box;
+  transform: translateY(-100px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card:hover .slide.slide2 {
+  transform: translateY(0);
+}
+
+.card .slide.slide2::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 4px;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+}
+
+.card .slide.slide2 h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.card .slide.slide2 p {
+  font-size: 14px;
+  text-align: center;
+  color: var(--gray3);
 }
 
 /* =======================
@@ -409,22 +570,6 @@ section {
 .contact input::placeholder,
 .contact textarea::placeholder {
   color: var(--gray4);
-}
-
-.contact button {
-  padding: 12px;
-  font-size: 1rem;
-  background: var(--white);
-  color: var(--black);
-  border: 2px solid var(--white);
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.contact button:hover {
-  background: var(--black);
-  color: var(--white);
 }
 
 /* =======================
@@ -493,12 +638,47 @@ footer {
 }
 
 /* =======================
-   Video 3D Tilt
+   Lights Animation
 ======================= */
-.about-video-container {
-  perspective: 1000px;
-}
-#about-video {
-  transform-style: preserve-3d;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+@keyframes lights {
+  0% {
+    color: hsl(230, 40%, 80%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 50%, 0.2),
+      0 0 0.125em hsla(320, 100%, 60%, 0.3),
+      -1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+      1em 0.125em 0.5em hsla(220, 100%, 60%, 0);
+  }
+  30% {
+    color: hsl(230, 80%, 90%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 60%, 0.5),
+      0 0 0.125em hsla(320, 100%, 70%, 0.5),
+      -0.5em -0.125em 0.25em hsla(40, 100%, 50%, 0.2),
+      0.5em 0.125em 0.25em hsla(220, 100%, 60%, 0.4);
+  }
+  40% {
+    color: hsl(230, 100%, 95%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 70%, 0.5),
+      0 0 0.125em hsla(320, 100%, 80%, 0.5),
+      -0.25em -0.125em 0.125em hsla(40, 100%, 50%, 0.2),
+      0.25em 0.125em 0.125em hsla(220, 100%, 70%, 0.4);
+  }
+  70% {
+    color: hsl(230, 80%, 90%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 60%, 0.5),
+      0 0 0.125em hsla(320, 100%, 70%, 0.5),
+      0.5em -0.125em 0.25em hsla(40, 100%, 50%, 0.2),
+      -0.5em 0.125em 0.25em hsla(220, 100%, 60%, 0.4);
+  }
+  100% {
+    color: hsl(230, 40%, 80%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 50%, 0.2),
+      0 0 0.125em hsla(320, 100%, 60%, 0.3),
+      1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+      -1em 0.125em 0.5em hsla(220, 100%, 60%, 0);
+  }
 }

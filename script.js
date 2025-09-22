@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let volume = 0;
     const fadeInInterval = setInterval(() => {
       volume += 0.02;
-      if (volume >= 0.6) { // limit to 60% volume
+      if (volume >= 0.6) {
         volume = 0.6;
         clearInterval(fadeInInterval);
       }
@@ -35,15 +35,25 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
 
   // ======================
-  // Smooth scroll
+  // Smooth scroll (with button delay)
   // ======================
-  document.querySelectorAll('.nav-links a, .btn').forEach(el => {
+  document.querySelectorAll('.nav-links a, .btn, .btn-slice').forEach(el => {
     el.addEventListener('click', e => {
       const href = el.getAttribute('href');
       if (!href || !href.startsWith('#')) return;
       e.preventDefault();
       const target = document.querySelector(href);
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
+
+      if (target) {
+        if (el.classList.contains("btn-slice")) {
+          // wait for slice animation (~1s) before scrolling
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }, 1000);
+        } else {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
     });
   });
 
@@ -100,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const texts = ["Information Technology", "Web Designer", "Logo Maker", "Fresh Graduate"];
     let index = 0, charIndex = 0, isDeleting = false;
 
-    // Apply galaxy gradient style
     typewriter.style.backgroundImage = "linear-gradient(90deg, #8e2de2, #4a00e0, #1e3c72, #2a5298)";
     typewriter.style.backgroundSize = "400% 400%";
     typewriter.style.webkitBackgroundClip = "text";
@@ -108,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     typewriter.style.color = "transparent";
     typewriter.style.animation = "galaxyFlow 8s ease infinite";
 
-    // Inject keyframes for gradient animation
     const style = document.createElement("style");
     style.textContent = `
       @keyframes galaxyFlow {

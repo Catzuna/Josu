@@ -22,10 +22,10 @@
     </div>
 
     <ul class="nav-links" id="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#home" class="hover-underline">Home</a></li>
+      <li><a href="#about" class="hover-underline">About</a></li>
+      <li><a href="#projects" class="hover-underline">Projects</a></li>
+      <li><a href="#contact" class="hover-underline">Contact</a></li>
     </ul>
   </header>
 
@@ -33,7 +33,7 @@
   <main>
 
     <!-- Hero Section -->
-    <section id="home" class="hero hidden-bottom">
+    <section id="home" class="hero fade">
       <div class="hero-text">
         <h1>Josu</h1>
         <h3 id="typewriter"></h3>
@@ -42,7 +42,7 @@
           My goal is to provide high-quality solutions that help your business grow and manage its online presence efficiently.
         </p>
 
-        <div class="services hidden-bottom">
+        <div class="services fade">
           <span>Website & Portfolio Design</span>
           <span>WordPress Development</span>
           <span>Social Media Management</span>
@@ -50,19 +50,23 @@
           <span>Business Websites</span>
         </div>
 
-        <a href="#contact" class="btn">WORK WITH ME</a>
+        <!-- Sliced Button -->
+        <a href="#contact" class="btn-slice">
+          <div class="top"><span>WORK WITH ME</span></div>
+          <div class="bottom"><span>WORK WITH ME</span></div>
+        </a>
       </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about hidden-left">
+    <section id="about" class="about fade">
       <div class="about-content">
-        <h2>About Me</h2>
+        <h2 class="hover-underline">About Me</h2>
         <p id="about-paragraph">
           I’m Joshua Adrian Don, a 23-year-old Web Designer and Virtual Assistant, and a BSIT graduate from Dalubsaan ng Lungsod ng Lucena (2025). I specialize in creating modern, responsive websites and providing virtual assistance tailored to businesses’ needs. Skilled in WordPress, Figma, Canva, and Capcut, I focus on delivering high-quality solutions including Website & Portfolio Design, WordPress Development, Social Media Management, Video Editing & Content Creation, and Business Websites. I am dedicated to helping clients achieve their goals efficiently while gaining experience and growing professionally in this field.
         </p>
       </div>
-      <div class="about-video-container hidden-right">
+      <div class="about-video-container fade">
         <video autoplay loop muted playsinline id="about-video">
           <source src="Josu.mp4" type="video/mp4">
           Your browser does not support the video tag.
@@ -88,32 +92,74 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="projects hidden-bottom">
-      <h2>Projects</h2>
+    <section id="projects" class="projects fade">
+      <h2 class="hover-underline">Projects</h2>
       <div class="project-grid">
-        <div class="project-card">
-          <h3>Project 1</h3>
-          <p>Brief description of the project.</p>
+
+        <div class="card fade">
+          <div class="slide slide1">
+            <div class="content">
+              <div class="icon">
+                <img src="project1.jpg" alt="Project 1">
+              </div>
+            </div>
+          </div>
+          <div class="slide slide2">
+            <div class="content">
+              <h3>Project 1</h3>
+              <p>Brief description of the project.</p>
+            </div>
+          </div>
         </div>
-        <div class="project-card">
-          <h3>Project 2</h3>
-          <p>Brief description of the project.</p>
+
+        <div class="card fade">
+          <div class="slide slide1">
+            <div class="content">
+              <div class="icon">
+                <img src="project2.jpg" alt="Project 2">
+              </div>
+            </div>
+          </div>
+          <div class="slide slide2">
+            <div class="content">
+              <h3>Project 2</h3>
+              <p>Brief description of the project.</p>
+            </div>
+          </div>
         </div>
-        <div class="project-card">
-          <h3>Project 3</h3>
-          <p>Brief description of the project.</p>
+
+        <div class="card fade">
+          <div class="slide slide1">
+            <div class="content">
+              <div class="icon">
+                <img src="project3.jpg" alt="Project 3">
+              </div>
+            </div>
+          </div>
+          <div class="slide slide2">
+            <div class="content">
+              <h3>Project 3</h3>
+              <p>Brief description of the project.</p>
+            </div>
+          </div>
         </div>
+
       </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact hidden-bottom">
-      <h2>Contact Me</h2>
+    <section id="contact" class="contact fade">
+      <h2 class="hover-underline">Contact Me</h2>
       <form>
         <input type="text" placeholder="Your Name" required>
         <input type="email" placeholder="Your Email" required>
         <textarea rows="5" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
+        
+        <!-- Sliced Button -->
+        <button type="submit" class="btn-slice">
+          <div class="top"><span>SEND MESSAGE</span></div>
+          <div class="bottom"><span>SEND MESSAGE</span></div>
+        </button>
       </form>
     </section>
 
